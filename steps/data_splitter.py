@@ -1,4 +1,4 @@
-from zenml import logger
+from zenml.logger import get_logger
 from zenml import step
 
 import pandas as pd
@@ -6,6 +6,8 @@ from typing_extensions import Annotated
 from typing import Tuple
 
 from steps.src.model_building import DataSplitter
+
+logger = get_logger(__name__)
 
 @step
 def split_data(df:pd.DataFrame) ->Tuple[
@@ -22,3 +24,4 @@ def split_data(df:pd.DataFrame) ->Tuple[
     except Exception as e:
         logger.error(e)
         raise e
+    

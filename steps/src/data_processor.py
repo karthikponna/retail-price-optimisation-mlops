@@ -1,5 +1,6 @@
 import pandas as pd
 import numpy as np
+from sklearn.preprocessing import OneHotEncoder, OrdinalEncoder
 
 
 class CategoricalEncoder:
@@ -18,12 +19,12 @@ class CategoricalEncoder:
     def __init__(self, method:str = "onehot", categories:str = "auto"):
         self.method = method
         self.categories = categories
-        self.encoder = None
+        self.encoder = {}
 
     def fit(self, df:pd.DataFrame, columns) -> None:
         for col in columns:
             if self.method == "onehot":
-                self.encoder[col] = OneHotEncoder(sparse=False, categories=self.categories)
+                self.encoder[col] = OneHotEncoder(sparse_output=False, categories=self.categories)
             elif self.method == "ordinal":
                 self.encoder[col] = OrdinalEncoder(categories=self.categories)
             

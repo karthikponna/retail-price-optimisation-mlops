@@ -8,8 +8,12 @@ from zenml.client import Client
 from zenml.integrations.mlflow.experiment_trackers import MLFlowExperimentTracker
 from zenml.logger import get_logger
 from typing_extensions import Annotated
-from typing import Tuple
+from typing import Tuple, List
 from zenml import step
+
+from materializer.custom_materializer import SKLearnModelMaterializer, ListMaterializer
+
+logger = get_logger(__name__)
 
 experiment_tracker = Client().active_stack.experiment_tracker
 
@@ -21,9 +25,9 @@ if not experiment_tracker or not isinstance(
         "this example to work."
     )
 
-@step(experiment_tracker="mlflow_tracker",
+@step(experiment_tracker="mlflow_tracker_mlops",
       settings={"experiment_tracker.mlflow":{"experiment_name":"test_name"}},
-      enable_cache=False, output_materializers=[SKLearModelMaterializer, ListMaterializer]
+      enable_cache=False, output_materializers=[SKLearnModelMaterializer, ListMaterializer]
       )
 
 def sklearn_train(

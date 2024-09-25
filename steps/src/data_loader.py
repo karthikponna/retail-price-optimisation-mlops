@@ -19,7 +19,7 @@ class DataLoader:
             pd.DataFram: Data from the table.        
         """
 
-        query = "SELECT * FROM" + table_name
+        query = "SELECT * FROM " + table_name
         try:
             self.data = pd.read_sql(query, self.engine)
             return self.data
